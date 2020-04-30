@@ -1,3 +1,4 @@
+@add_order
 Feature: Add order
   As use, I want to be able to create new orders
 

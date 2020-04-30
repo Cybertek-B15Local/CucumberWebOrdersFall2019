@@ -116,4 +116,13 @@ public class OrderPage extends BasePage {
         System.out.println("Enter expiration date :: " + expirationDate);
     }
 
+    public void clickOnProcessButton() {
+        processButton.click();
+        System.out.println("Click on process button");
+    }
+
+    public String getTotal() {
+        return totalInput.getAttribute("value");
+    }
+
 }

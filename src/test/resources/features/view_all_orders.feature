@@ -14,8 +14,8 @@ Feature: view all orders
       When user clicks on "UncheckAll" button
       Then verify all orders are unselected
 
-
-      Scenario: verify
+      @US_orders
+      Scenario: verify number of orders from US and their names
         When user selects only orders from "US"
         Then verify there is 5 orders
         And verify their names below

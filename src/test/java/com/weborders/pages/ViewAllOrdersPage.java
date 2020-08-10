@@ -28,8 +28,22 @@ public class ViewAllOrdersPage extends BasePage {
     @FindBy(xpath = "//h2")
     private WebElement title;
 
-    @FindBy(xpath = "//tr//td//input[@type='checkbox']")
+    @FindBy(xpath = "//td//input[@type='checkbox']")
     private List<WebElement> checkboxes;
+
+    @FindBy(xpath = "//tr//td[8]")
+    private List<WebElement> state;
+
+    @FindBy(xpath = "//tr//td//input[@type='checkbox']/../following-sibling::td[1]")
+    private List<WebElement> names;
+
+    public List<WebElement> getNames(){
+        return names;
+    }
+
+    public List<WebElement> getState(){
+        return state;
+    }
 
 
     public List<WebElement> getCheckboxes(){

@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "com/weborders/step_definitions",
-        tags = "@buttons",
+        tags = "@US_orders",
         dryRun = false,
         plugin = "html:target/default-report"
 )

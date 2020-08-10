@@ -1,46 +1,55 @@
 package com.weborders.step_definitions;
 
+import com.weborders.pages.ViewAllOrdersPage;
+import com.weborders.utilities.BrowserUtilities;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 
-public class
-ViewAllOrdersStepDefinitions {
+public class ViewAllOrdersStepDefinitions {
+    ViewAllOrdersPage viewAllOrders=new ViewAllOrdersPage();
     @Given("user is logged in")
     public void user_is_logged_in() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        viewAllOrders.login();
     }
 
     @Given("user clicks on {string} tab")
     public void user_clicks_on_tab(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+       viewAllOrders.clickTab();
     }
 
     @Then("verify title of page is List of All Orders")
     public void verify_title_of_page_is_List_of_All_Orders() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        Assert.assertTrue(viewAllOrders.getTitle().contains("List of All Orders"));
     }
 
     @When("user clicks on {string} button")
-    public void user_clicks_on_button(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void user_clicks_on_button(String buttonName) {
+       viewAllOrders.clickButton(buttonName);
+       BrowserUtilities.wait(3);
     }
 
-    @Then("verify all checkboxes are selected")
-    public void verify_all_checkboxes_are_selected() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @Then("verify all orders are selected")
+    public void verifyAllOrdersAreSelected() {
+        int c=0;
+        for (WebElement checkbox : viewAllOrders.getCheckboxes()) {
+            if(checkbox.isSelected()) c++;
+        }
+        Assert.assertEquals(viewAllOrders.getCheckboxes().size(),c);
+
     }
 
-    @Then("verify all checkboxes unselected")
-    public void verify_all_checkboxes_unselected() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+
+    @Then("verify all orders are unselected")
+    public void verifyAllOrdersUnselected() {
+        for (WebElement checkbox : viewAllOrders.getCheckboxes()) {
+            Assert.assertFalse(checkbox.isSelected());
+        }
     }
+
 
     @When("user selects only orders from {string}")
     public void user_selects_only_orders_from(String string) {
@@ -65,5 +74,7 @@ ViewAllOrdersStepDefinitions {
         // For other transformations you can register a DataTableType.
         throw new io.cucumber.java.PendingException();
     }
+
+
 
 }

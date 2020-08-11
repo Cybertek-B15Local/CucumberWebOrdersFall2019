@@ -57,6 +57,7 @@ public class ViewAllOrdersPage extends BasePage {
     //btnCheckAll
     //btnUncheckAll
     public void clickButton(String name) {
+
         driver.findElement(By.id("ctl00_MainContent_btn" + name)).click();
     }
 

@@ -9,9 +9,10 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "com/weborders/step_definitions",
-        tags = "@US_orders",
+        tags = "",
         dryRun = false,
-        plugin = "html:target/default-report"
+        plugin = {"json:target/cucumber1.json",
+        "rerun:target/rerun.txt"}
 )
 public class CucumberRunner {
 

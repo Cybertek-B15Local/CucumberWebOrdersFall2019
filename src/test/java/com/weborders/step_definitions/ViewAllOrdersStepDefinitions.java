@@ -59,6 +59,7 @@ public class ViewAllOrdersStepDefinitions {
            if(viewAllOrders.getState().get(i).getText().equals("US")){
                viewAllOrders.getCheckboxes().get(i).click();
 
+
            }
         }
     }
@@ -67,7 +68,8 @@ public class ViewAllOrdersStepDefinitions {
     public void verify_there_is_orders(int orderNum) {
         int c=0;
         for (WebElement checkbox : viewAllOrders.getCheckboxes()) {
-            if(checkbox.isSelected()) c++;
+            if(checkbox.isSelected())
+                c++;
         }
         Assert.assertEquals(orderNum,c);
     }

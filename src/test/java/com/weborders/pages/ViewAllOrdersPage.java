@@ -38,6 +38,7 @@ public class ViewAllOrdersPage extends BasePage {
     private List<WebElement> names;
 
     public List<WebElement> getNames(){
+
         return names;
     }
 
@@ -47,6 +48,7 @@ public class ViewAllOrdersPage extends BasePage {
 
 
     public List<WebElement> getCheckboxes(){
+
         return checkboxes;
     }
 

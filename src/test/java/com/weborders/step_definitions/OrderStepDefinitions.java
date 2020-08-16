@@ -1,63 +1,125 @@
 package com.weborders.step_definitions;
-
 import com.weborders.pages.OrderPage;
+import com.weborders.pages.ViewAllOrdersPage;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.it.Ma;
 import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.SynchronousQueue;
 
 public class OrderStepDefinitions {
+    OrderPage orderPage=new OrderPage();
+    ViewAllOrdersPage viewAllOrders=new ViewAllOrdersPage();
 
-    OrderPage orderPage = new OrderPage();
-
-    // | Card | Card Nr:    | Expire date (mm/yy) |
-    @When("user enters payment information:")
-    public void user_enters_payment_information(List<Map<String, String>> dataTable) {
-        Map<String, String> paymentInfo = dataTable.get(0);
-        orderPage.enterPaymentInformation(paymentInfo.get("Card"),
-                paymentInfo.get("Card Nr:"),
-                paymentInfo.get("Expire date (mm/yy)"));
-    }
-
-    @When("user click on process button")
-    public void user_click_on_process_button() {
-        orderPage.clickOnProcessButton();
-    }
-
-    //| Customer name | Street  | City     | State    | Zip   |
-    @When("user enters address information:")
-    public void user_enters_address_information(List<Map<String, String>> dataTable) {
-        Map<String, String> values = dataTable.get(0);
-        orderPage.enterAddressInformation(values.get("Customer name"),
-                values.get("Street"),
-                values.get("City"),
-                values.get("State"),
-                values.get("Zip"));
+    @Given("user clicks on \\{order} button")
+    public void user_clicks_on_button() {
+        viewAllOrders.login();
+        orderPage.order.click();
 
     }
 
-    //      | Product     | Quantity | Price per unit | Discount |
-    @When("user enters product information:")
-    public void user_enters_product_information(List<Map<String, String>> dataTable) {
-        Map<String, String> values = dataTable.get(0);
-        orderPage.setProductType(values.get("Product"));
-        orderPage.enterQuantity(values.get("Quantity"));
-        orderPage.enterPricePerUnit(values.get("Price per unit"));
-        orderPage.enterDiscount(values.get(""));
+    @When("user choose {string} from drop down")
+    public void user_choose_from_drop_down(String string) {
+        Select select=new Select(orderPage.productOptions);
+        List<WebElement> options=select.getOptions();
+        for (WebElement option:options) {
+            String text = option.getText();
+            if(text.equalsIgnoreCase("mymoney")){
+                select.selectByVisibleText("MyMoney");
+                System.out.println(text+ " is selected");
+            }
+        }
+              {
+
+        }
     }
 
-    @When("user click on calculate button")
-    public void user_click_on_calculate_button() {
-        orderPage.clickToCalculate();
+    @When("user type a quantity")
+    public void user_type_a_quantity() {
+
+
+        orderPage.quantity.click();
+       // orderPage.quantity.clear();
+        orderPage.quantity.sendKeys("80");
+
     }
 
-    @Then("user should verify that total {int} is displayed")
-    public void user_should_verify_that_total_is_displayed(Integer int1) {
-        Assert.assertEquals(String.valueOf(int1), orderPage.getTotal());
+    @When("user type a price")
+    public void user_type_a_price() {
+        orderPage.price.sendKeys("500");
+
     }
+
+    @Then("user hit on {string} button")
+    public void user_hit_on_button(String string) {
+
+        orderPage.calculate.click();
+    }
+
+
+    @When("user sent {string}, {string}, {string}, {string}")
+    public void userSent(String name, String street, String city, String zipcode) {
+
+        orderPage.name.sendKeys(name);
+        orderPage.street.sendKeys(street);
+        orderPage.city.sendKeys(city);
+        orderPage.zipcode.sendKeys(zipcode);
+
+    }
+
+    @When("user select a card from chexboxes")
+    public void user_select_a_card_from_chexboxes() {
+        List<WebElement> cardList = orderPage.cardList;
+        int size = orderPage.cardList.size();
+        System.out.println(size);
+
+
+
+        for (WebElement card : cardList) {
+            String text = card.getText();
+
+            if (text.equals("MasterCard")) {
+                card.click();
+            }
+
+        }
+    }
+    @When("type cardNumber")
+    public void type_cardNumber() {
+orderPage.cardNumber.sendKeys("1234567");
+    }
+
+    @When("type expire date")
+    public void type_expire_date() {
+        orderPage.expireDate.sendKeys("10/20");
+    }
+
+    @Then("click {string} button")
+    public void click_button(String string) {
+        orderPage.process.click();
+    }
+
+    @Then("user should be able to see that new order created")
+    public void user_should_be_able_to_see_that_new_order_created() {
+       String message= orderPage.message.getText();
+       System.out.println(message);
+       String actualMeesage="New order has been successfully added.";
+       Assert.assertEquals(message,actualMeesage);
+
+
+
+
+
+
+
+    }
+
 
 
 }

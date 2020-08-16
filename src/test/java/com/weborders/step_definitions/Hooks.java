@@ -26,7 +26,7 @@ public class Hooks {
             byte[] image = takesScreenshot.getScreenshotAs(OutputType.BYTES);
             scenario.embed(image, "image/png", scenario.getName());
         }
-        Driver.closeDriver();
+      // Driver.closeDriver();
     }
 }
 

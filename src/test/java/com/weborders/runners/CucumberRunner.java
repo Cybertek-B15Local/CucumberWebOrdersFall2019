@@ -7,11 +7,15 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/order.feature",
         glue = "com/weborders/step_definitions",
-        tags = "@add_order",
-        dryRun = true,
-        plugin = "html:target/default-report"
+        tags = "",
+        dryRun = false,
+        plugin = {"json:target/cucumber1.json",
+        "rerun:target/rerun.txt"}
 )
 public class CucumberRunner {
+
+
+
 }

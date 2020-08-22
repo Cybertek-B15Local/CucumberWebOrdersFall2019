@@ -12,11 +12,15 @@ public abstract class BasePage {
     protected WebDriverWait wait = new WebDriverWait(driver, 30);
 
     public BasePage(){
+
         PageFactory.initElements(driver, this);
     }
 
     public void navigateTo(String component) {
         String locator = "//a[text() = '" + component + "']";
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator))).click();
+    }
+    public static void gitHub(){
+
     }
 }
